@@ -1,0 +1,84 @@
+syntax = "proto3";
+
+package abi;
+
+message ImageSpec {
+    repeated Spec specs = 1;
+}
+
+// 图片改大小
+message Resize {
+    uint32 width = 1;
+    uint32 height = 2;
+
+    enum ResizeType {
+        NORMAL = 0;
+        SEAM_CARVE = 1;
+    }
+
+    ResizeType rtype = 3;
+
+    enum SampleFilter {
+        UNDEFINED = 0;
+        NEAREST = 1;
+        TRIANGLE = 2;
+        CATMULL_ROM = 3;
+        GUASSIAN = 4;
+        LANCZOS3 = 5;
+    }
+
+    SampleFilter filter = 4;
+}
+
+// 图片截取
+message Crop {
+    uint32 x1 = 1;
+    uint32 y1 = 2;
+    uint32 x2 = 3;
+    uint32 y2 = 4;
+}
+
+// 水平翻转
+message Fliph {
+
+}
+
+// 垂直翻转
+message Flipv {
+
+}
+
+// 对比度
+message Contrast {
+    float contrast = 1;
+}
+
+// 滤镜
+message Filter {
+    enum Filter {
+        UNSPECIFIED = 0;
+        OCEANIC = 1;
+        ISLANDS = 2;
+        MARINE = 3;
+    }
+    Filter filter = 1;
+}
+
+// 水印
+message Watermark {
+    uint32 x = 1;
+    uint32 y = 2;
+}
+
+// 一个 spec 可以包含任意一个处理方式
+message Spec {
+    oneof data {
+        Resize resize = 1;
+        Crop crop = 2;
+        Fliph fliph = 3;
+        Flipv flipv = 4;
+        Contrast contrast = 5;
+        Filter filter = 6;
+        Watermark watermark = 7;
+    }
+}
