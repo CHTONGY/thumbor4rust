@@ -15,7 +15,7 @@ lazy_static! {
     static ref WATERMARK: PhotonImage = {
         // 这里你需要把我 github 项目下的对应图片拷贝到你的根目录
         // 在编译的时候 include_bytes! 宏会直接把文件读入编译后的二进制
-        let data = include_bytes!("../../ty_pic.jpeg");
+        let data = include_bytes!("${local_picture}");
         let watermark = open_image_from_bytes(data).unwrap();
         transform::resize(&watermark, 64, 64, transform::SamplingFilter::Nearest)
     };
